@@ -2,6 +2,8 @@ import React, { useEffect, useReducer } from 'react';
 // import data from '../data';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import LoadingBox from '../Components/LoadingBox';
+import MessageBox from '../Components/MessageBox';
 // import logger from 'use-reducer-logger';Removed it becoz it is not compatible with react-bootstrap. Also Uninstall it
 function reducer(state, action) {
   switch (action.type) {
@@ -46,9 +48,9 @@ export default function HomeScreen() {
       </div>
       <div className="products">
         {loading ? (
-          <div>Loading...</div>
+          <LoadingBox />
         ) : error ? (
-          <div>{error}</div>
+          <MessageBox variant="danger">{error}</MessageBox>
         ) : (
           productsData.map((product) => (
             <div className="product" key={product.name}>
