@@ -1,8 +1,8 @@
-import React, { useEffect, useReducer, useState } from 'react';
+import React, { useEffect, useReducer } from 'react';
 // import data from '../data';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import logger from 'use-reducer-logger';
+// import logger from 'use-reducer-logger';Removed it becoz it is not compatible with react-bootstrap. Also Uninstall it
 function reducer(state, action) {
   switch (action.type) {
     case 'FETCH_REQUEST':
@@ -18,14 +18,11 @@ function reducer(state, action) {
 
 export default function HomeScreen() {
   // const [productsData, setProductsData] = useState([]);
-  const [{ loading, error, productsData }, dispatch] = useReducer(
-    logger(reducer),
-    {
-      productsData: [],
-      loading: true,
-      error: '',
-    }
-  );
+  const [{ loading, error, productsData }, dispatch] = useReducer(reducer, {
+    productsData: [],
+    loading: true,
+    error: '',
+  });
   useEffect(() => {
     const fetchProductsData = async () => {
       dispatch({ type: 'FETCH_REQUEST' });
