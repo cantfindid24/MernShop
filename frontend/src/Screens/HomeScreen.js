@@ -4,6 +4,10 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import LoadingBox from '../Components/LoadingBox';
 import MessageBox from '../Components/MessageBox';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Product from '../Components/Product';
+
 // import logger from 'use-reducer-logger';Removed it becoz it is not compatible with react-bootstrap. Also Uninstall it
 function reducer(state, action) {
   switch (action.type) {
@@ -52,22 +56,14 @@ export default function HomeScreen() {
         ) : error ? (
           <MessageBox variant="danger">{error}</MessageBox>
         ) : (
-          productsData.map((product) => (
-            <div className="product" key={product.name}>
-              <Link to={`/product/${product.name}`}>
-                <img src={product.image} alt={product.name} />
-              </Link>
-              <div className="product-info">
-                <Link to={`/product/${product.name}`}>
-                  <p>{product.name}</p>
-                </Link>
-                <p>
-                  <strong>${product.price}</strong>
-                </p>
-                <button>Add to cart</button>
-              </div>
-            </div>
-          ))
+          <Row>
+            {Array.isArray(productsData) &&
+              productsData.map((product) => (
+                <Col key={product.name} sm={6} md={4} lg={3} className="mb-3">
+                  <Product product={product} />
+                </Col>
+              ))}
+          </Row>
         )}
       </div>
     </div>
